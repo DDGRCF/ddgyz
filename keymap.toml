@@ -374,11 +374,11 @@ keymap = [
 	# 光标移动(单词级)
 	# =======================
 	{ on = "b",         run = "backward",                    desc = "移动到当前/上一个单词开头" },
-	{ on = "B",         run = "backward --far",              desc = "移动到当前/上一个单词开头" },
+	{ on = "B",         run = "backward wide",              desc = "移动到当前/上一个单词开头" },
 	{ on = "w",         run = "forward",                     desc = "移动到下一个单词开头" },
-	{ on = "W",         run = "forward --far",               desc = "移动到下一个单词开头" },
+	{ on = "W",         run = "forward wide",               desc = "移动到下一个单词开头" },
 	{ on = "e",         run = "forward --end-of-word",       desc = "移动到当前/下一个单词结尾" },
-	{ on = "E",         run = "forward --far --end-of-word", desc = "移动到当前/下一个单词结尾" },
+	{ on = "E",         run = "forward wide --end-of-word", desc = "移动到当前/下一个单词结尾" },
 	{ on = "<A-b>",     run = "backward",                    desc = "移动到当前/上一个单词开头" },
 	{ on = "<A-f>",     run = "forward --end-of-word",       desc = "移动到当前/下一个单词结尾" },
 	{ on = "<C-Left>",  run = "backward",                    desc = "移动到当前/上一个单词开头" },
