@@ -335,6 +335,8 @@ keymap = [
 	{ on = "<C-n>",  run = "recall 1",  desc = "下一条历史输入" },
 	{ on = "<Up>",   run = "recall -1", desc = "上一条历史输入" },
 	{ on = "<Down>", run = "recall 1",  desc = "下一条历史输入" },
+	{ on = "k",      run = "recall -1", desc = "上一条历史输入" },
+	{ on = "j",      run = "recall 1",  desc = "下一条历史输入" },
 
 	# =======================
 	# 光标移动(字符级)
