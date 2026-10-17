@@ -10,18 +10,18 @@ prepend_keymap = [
   # =======================
   # 目录跳转与操作
   # =======================
-  { on = [ "g", "h" ], run = "cd ~", desc = "Home" },
-  { on = [ "g", "a" ], run = "cd ~/Desktop/", desc = "Desktop" },
-  { on = [ "g", "d" ], run = "cd ~/Downloads/", desc = "Downloads" },
-  { on = [ "g", "p" ], run = "cd ~/Pictures/", desc = "Pictures" },
-  { on = [ "g", "v" ], run = "cd ~/Videos/", desc = "Videos" },
-  { on = [ "g", "m" ], run = "cd ~/Music/", desc = "Music" },
-  { on = [ "g", "w" ], run = "cd ~/Documents/", desc = "Documents" },
-  { on = [ "g", "u" ], run = "cd ~/Public/", desc = "Public" },
+  { on = [ "g", "h" ], run = "cd ~", desc = "主目录" },
+  { on = [ "g", "a" ], run = "cd ~/Desktop/", desc = "桌面" },
+  { on = [ "g", "d" ], run = "cd ~/Downloads/", desc = "下载" },
+  { on = [ "g", "p" ], run = "cd ~/Pictures/", desc = "图片" },
+  { on = [ "g", "v" ], run = "cd ~/Videos/", desc = "视频" },
+  { on = [ "g", "m" ], run = "cd ~/Music/", desc = "音乐" },
+  { on = [ "g", "w" ], run = "cd ~/Documents/", desc = "文档" },
+  { on = [ "g", "u" ], run = "cd ~/Public/", desc = "公共目录" },
   { on = [ "g", "t" ], run = "plugin trash", desc = "回收站" },
-  { on = [ "g", "T" ], run = "cd ~/Templates/", desc = "Templates" },
-  { on = [ "g", "c" ], run = "cd ~/.config/", desc = "~/.config" },
-  { on = [ "g", "l" ], run = "cd ~/.local/", desc = "~/.local" },
+  { on = [ "g", "T" ], run = "cd ~/Templates/", desc = "模板" },
+  { on = [ "g", "c" ], run = "cd ~/.config/", desc = "~/.config 目录" },
+  { on = [ "g", "l" ], run = "cd ~/.local/", desc = "~/.local 目录" },
   { on = [ "g", "<Space>" ], run = "cd --interactive", desc = "交互式目录" },
   { on = [ "g", "f" ], run = "follow", desc = "符号链接" },
 
@@ -241,6 +241,28 @@ prepend_keymap = [
   # 挂载硬盘
   # =======================
   { on  = ["M","p"],run = "plugin mount", desc = "挂载硬盘" },
+  # =======================
+  # 默认键位中文化（功能与 Yazi 默认完全一致，仅把说明翻成中文）
+  # =======================
+  { on = "G",         run = "arrow bot",     desc = "跳到列表底部" },
+  { on = "<End>",     run = "arrow bot",     desc = "跳到列表底部" },
+  { on = "<Home>",    run = "arrow top",     desc = "跳到列表顶部" },
+  { on = "H",         run = "back",          desc = "返回上一个目录" },
+  { on = "L",         run = "forward",       desc = "前进到下一个目录" },
+  { on = "K",         run = "seek -5",       desc = "预览向上滚动 5 行" },
+  { on = "J",         run = "seek 5",        desc = "预览向下滚动 5 行" },
+  { on = "o",         run = "open",          desc = "打开选中文件" },
+  { on = "p",         run = "paste",         desc = "粘贴(默认)" },
+  { on = "P",         run = "paste --force", desc = "强制粘贴(覆盖同名文件)" },
+  { on = "<C-->",     run = "hardlink",      desc = "创建硬链接" },
+  { on = "r",         run = "rename --cursor=before_ext", desc = "重命名" },
+  { on = "]",         run = "tab_switch 1 --relative",    desc = "切换到下一个标签页" },
+  { on = "{",         run = "tab_swap -1",                desc = "与上一个标签交换位置" },
+  { on = "<F1>",      run = "help",          desc = "打开帮助" },
+  { on = [ "c", "C" ], run = "copy url",     desc = "复制文件 URL" },
+  { on = [ "c", "D" ], run = "copy dirurl",  desc = "复制目录 URL" },
+  { on = [ "t", "t" ], run = "tab_create --current",   desc = "在当前目录新建标签页" },
+  { on = [ "t", "r" ], run = "tab_rename --interactive", desc = "重命名当前标签页" },
 ]
 
 
