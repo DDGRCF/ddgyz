@@ -75,7 +75,8 @@ yazi
 
 | 功能 | 说明 | 触发方式 |
 | :--- | :--- | :--- |
-| 常用目录直达 | Home、Desktop、Downloads、Pictures、Videos、Music、Documents、Public、Templates、`.config`、`.local` | `g` + `h/a/d/p/v/m/w/u/t/c/l`；`g` `<Space>` 交互式输入 |
+| 常用目录直达 | Home、Desktop、Downloads、Pictures、Videos、Music、Documents、Public、Templates、`.config`、`.local` | `g` + `h/a/d/p/v/m/w/u/T/c/l`；`g` `<Space>` 交互式输入 |
+| 回收站 | 进入 Yazi 原生回收站视图（`trash://`） | `g` `t` |
 | Vim 导航 | `h/j/k/l` 移动与进出目录，`gg`/`gb` 首尾，`Ctrl+u/d/b/f` 半页/整页 | 见键位表 |
 | 智能进入 | 光标在目录上则进入，在文件上则打开；并自动穿透「仅有一个子目录」的目录链 | `→`（`plugin bypass smart-enter`） |
 | 选择后自动下移 | 选中当前项后自动移到下一项，且不循环 | `<Space>`（`toggle` + `augment-command arrow 1 --no-wrap`） |
