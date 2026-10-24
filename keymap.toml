@@ -45,12 +45,19 @@ keymap = [
   { on = [ "`", "`" ], run = "plugin gvfs -- jump-back-prev-cwd", desc = "跳回上一个目录" },
 
   # =======================
-  # 书签 (bookmarks)
+  # 书签 (yamb)
   # =======================
-  { on = "[", run = "plugin bookmarks save", desc = "保存当前位置为书签" },
-  { on = "]", run = "plugin bookmarks jump", desc = "跳转到书签" },
-  { on = [ "\\", "d" ], run = "plugin bookmarks delete", desc = "删除书签" },
-  { on = [ "\\", "D" ], run = "plugin bookmarks delete_all", desc = "删除所有书签" },
+  { on = "[", run = "plugin yamb -- save", desc = "保存当前位置为书签" },
+  { on = "]", run = "plugin yamb -- jump_by_key", desc = "跳转到书签" },
+  # \ 前缀：README 里的 u 映射过来，8 个动作全绑
+  { on = [ "\\", "g" ], run = "plugin yamb -- jump_by_key", desc = "书签:按键跳转(同 ])" },
+  { on = [ "\\", "d" ], run = "plugin yamb -- delete_by_key", desc = "书签:按键删除" },
+  { on = [ "\\", "r" ], run = "plugin yamb -- rename_by_key", desc = "书签:按键重命名" },
+  { on = [ "\\", "G" ], run = "plugin yamb -- jump_by_fzf", desc = "书签:fzf 跳转" },
+  { on = [ "\\", "D" ], run = "plugin yamb -- delete_by_fzf", desc = "书签:fzf 删除" },
+  { on = [ "\\", "R" ], run = "plugin yamb -- rename_by_fzf", desc = "书签:fzf 重命名" },
+  { on = [ "\\", "a" ], run = "plugin yamb -- save", desc = "书签:添加(同 [)" },
+  { on = [ "\\", "A" ], run = "plugin yamb -- delete_all", desc = "书签:删除所有" },
 
   # =======================
   # 压缩文件
