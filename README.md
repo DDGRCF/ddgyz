@@ -83,7 +83,7 @@
    - 支持 `o o` / `p p` 双键前缀写法，`p f` 强制粘贴
    - 重命名提供多种光标位置：`r r`（扩展名前）、`r f`（清空）、`r i`（开头）、`r a`（末尾）、`r c`（清空）
    - 复制路径改用新语法（`c c` / `c d` / `c f` / `c n`），另有 `c m` 清空主名重命名、`c r` 创建
-   - `U` 一键从 Git 强制更新本配置（`scripts/update_config.sh`）
+   - `U` 一键从 Git 强制更新本配置（`scripts/update_config.sh`，详见第六节）
    - `yazi.toml`：按扩展名排序、行模式显示创建时间、显示隐藏文件、预览自动换行、
      图像缩放用 `lanczos3`、图片任务内存上限 1 GiB，并为 mediainfo / duckdb /
      docx-preview / preview-typst 注册了 preloader 与 previewer 规则
@@ -173,7 +173,40 @@ sudo pacman -S pandoc-cli duckdb mediainfo ffmpeg imagemagick typst \
 
 ---
 
-## 六、说明
+## 六、更新
+
+在 Yazi 里按大写 **`U`**，会运行 `scripts/update_config.sh`，把本配置强制同步到作者仓库的最新版本。
+
+流程：
+
+1. 先弹确认提示：`你确定要强制覆盖本地 Yazi 配置吗? (y/N)`
+2. 按 **`y`** 继续；按 `N`、回车或其他键则取消
+3. `git fetch --all` 拉取作者最新提交
+4. `git reset --hard origin/main` **强制覆盖本地所有已跟踪文件**——`keymap.toml`、`theme.toml`、
+   `init.lua`、`yazi.toml`、`package.toml` 等全部变回仓库版本，你自己的改动一律丢弃
+5. `git clean -fd` **删除所有未跟踪的文件和目录**
+6. 结束前提示 `按回车键继续`，回车后回到 Yazi
+
+⚠️ **更新前请先备份重要改动**。它不会自动备份，也不会再问你第二次：
+
+```bash
+# 方式一：整目录备份（最稳）
+cp -r ~/.config/yazi ~/.config/yazi.bak
+
+# 方式二：把本地改动提交成一个 commit，之后还能用 git 找回来
+cd ~/.config/yazi && git add -A && git commit -m "我的本地改动"
+```
+
+特别注意，下面这些会被第 5 步的 `git clean -fd` 删掉，因为它们没有被 Git 跟踪：
+
+- **书签数据**：`~/.config/yazi/bookmark`（`yamb` 插件的全部书签就存在这个文件里）
+- 自己手动放进去的其他文件或目录（自改脚本、临时备份等）
+
+更新完成后，如果 `package.toml` 里的插件有增删，再执行一次 `ya pkg install` 补齐。
+
+---
+
+## 七、说明
 
 - 配置部分（`yazi.toml` / `keymap.toml` / `init.lua` / `theme.toml`）以 **MIT License** 发布，见 [`LICENSE`](./LICENSE)。
 - `plugins/` 与 `flavors/` 为上游开源项目的副本，版权归各自作者所有。
