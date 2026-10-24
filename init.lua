@@ -59,6 +59,4 @@ require("gvfs"):setup({
   -- root_mountpoint = (os.getenv("XDG_RUNTIME_DIR") or ("/run/user/" .. ya.uid())) .. "/gvfs"
 })
 
-require("recycle-bin"):setup()
-
 require("duckdb"):setup()

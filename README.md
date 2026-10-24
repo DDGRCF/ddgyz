@@ -19,7 +19,6 @@
 | `gvfs` | 挂载 MTP / SMB / SFTP / WebDAV 等设备与远程存储 | `M` 系列、`G m`；依赖 `gvfs`、`glib` |
 | `mount` | 本地磁盘分区挂载 / 卸载 / 弹出 | `M p`；依赖 `udisks2`、`util-linux` |
 | `ouch` | 压缩 / 解压（自动适配格式） | `c z`；依赖 `ouch` |
-| `recycle-bin` | 回收站管理：浏览、恢复、彻底删除、按天数清理 | `R b`；依赖 `trash-cli` |
 | `yamb` | 书签管理：持久化保存、按键跳转、fzf 搜索、重命名 | `[` 存、`]` 跳、`\g` 跳、`\r` 改名、`\d` 删、`\G`/`\D`/`\R` 走 fzf、`\a` 存、`\A` 清空；fzf 功能依赖 `fzf` |
 | `bypass` | 自动穿透「只有一个子目录」的目录链 | 配合 `→` 使用 |
 | `smart-enter` | 目录则进入、文件则打开的「二合一」动作 | 通过 `bypass` 调用 |
@@ -45,8 +44,9 @@
    （用法：`y` 选中文件 → 跳到目标目录 → 按对应符号）
 
 2. **`g t` 为回收站**
-   进入 Yazi 内置回收站视图（`plugin trash`）；Templates 挪到 `g T`，另配 `R b` 调用
-   `recycle-bin` 插件做浏览、恢复与清理。
+   进入 Yazi 内置回收站视图（`plugin trash`）；Templates 没用删了。
+   回收站里按 `O`（`open --interactive`）弹出菜单，可选 `Restore selected files`
+   恢复条目或 `Empty trash bin` 清空；按 `D` 永久删除选中条目。
 
 3. **标签页操作**
    - `-` / `=`：上一个 / 下一个标签页（默认是 `[` / `]`，这两个键已让给书签插件）
@@ -162,7 +162,7 @@ yazi
 ```bash
 # Arch Linux
 sudo pacman -S pandoc-cli duckdb mediainfo ffmpeg imagemagick typst \
-  starship trash-cli ouch 7zip file gvfs glib2 util-linux fzf zoxide
+  starship ouch 7zip file gvfs glib2 util-linux fzf zoxide
 ```
 
 其中 `fzf` 与 `zoxide` 对应 Yazi 内置插件，分别供 `z`（fzf 跳转）和 `Z`（zoxide 跳目录）使用。
