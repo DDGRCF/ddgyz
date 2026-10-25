@@ -1,6 +1,6 @@
 # Yazi 汉化增强配置
 
-> 一套基于 [Yazi](https://github.com/sxyazi/yazi) 的**中文增强配置**：界面提示全部汉化，内置 16 个实用插件，开箱即用。
+> 一套基于 [Yazi](https://github.com/sxyazi/yazi) 的**中文增强配置**：界面提示全部汉化，内置 17 个实用插件，开箱即用。
 
 - 适用版本：**Yazi 26.9.1**
 - 面向用户：中文用户
@@ -15,21 +15,23 @@
 | `mediainfo` | 音视频、图片的缩略图与媒体信息预览 | 光标停留即可预览；依赖 `ffmpeg`、`mediainfo` |
 | `duckdb` | 预览 CSV / TSV / JSON / Parquet / XLSX / DB 表格数据 | 光标停留即可预览；依赖 `duckdb` |
 | `docx-preview` | `.docx` 文档转纯文本预览（支持中文） | 依赖 `pandoc` |
+| `glow-md` | Markdown 预览首选：用 `glow` 渲染标题、列表、代码块 | `*.md` / `*.markdown` / `*.mdown` / `*.mkd` 光标停留即可预览；依赖 `glow`（未安装时自动回退纯文本） |
 | `preview-typst` | `.typ` 排版文档预览 | 依赖 `typst` |
-| `gvfs` | 挂载 MTP / SMB / SFTP / WebDAV 等设备与远程存储 | `M` 系列、`G m`；依赖 `gvfs`、`glib` |
+| `gvfs` | 挂载 MTP / SMB / SFTP / WebDAV 等设备与远程存储 | `M` 系列（跳转设备用 `M g`）；依赖 `gvfs`、`glib` |
 | `mount` | 本地磁盘分区挂载 / 卸载 / 弹出 | `M p`；依赖 `udisks2`、`util-linux` |
 | `ouch` | 压缩 / 解压（自动适配格式） | `c z`；依赖 `ouch` |
 | `yamb` | 书签管理：持久化保存、按键跳转、fzf 搜索、重命名 | `[` 存、`]` 跳、`\g` 跳、`\r` 改名、`\d` 删、`\G`/`\D`/`\R` 走 fzf、`\a` 存、`\A` 清空；fzf 功能依赖 `fzf` |
 | `bypass` | 自动穿透「只有一个子目录」的目录链 | 配合 `→` 使用 |
 | `smart-enter` | 目录则进入、文件则打开的「二合一」动作 | 通过 `bypass` 调用 |
 | `augment-command` | 增强命令：选中后自动下移（不循环）等 | `<Space>` 选中后下移 |
-| `open-with-cmd` | 用自定义命令打开文件 | `o c` |
+| `open-with-cmd` | 用自定义命令打开文件 | `Ctrl+O` |
 | `full-border` | 给三栏界面加完整圆角边框 | 启动即生效 |
 | `starship` | 顶部渲染 starship 提示符 | 依赖 `starship` |
 | `simple-status` | 精简底部状态栏 | 启动即生效 |
 
-> `package.toml` 锁定 16 个插件与 2 个现成主题（`dracula`、`catppuccin-mocha`），
-> 全部由 `ya pkg install` 自动安装，无需任何手动步骤。
+> `package.toml` 锁定 16 个远程插件与 2 个现成主题（`dracula`、`catppuccin-mocha`），
+> 全部由 `ya pkg install` 自动安装；第 17 个 `glow-md` 是本仓库自带的本地插件（`plugins/glow-md.yazi`），
+> 随配置一起克隆下来即可，不需要联网安装。
 
 ---
 
@@ -77,16 +79,22 @@
 7. **其他小调整**
    - `<Space>` 选中后自动下移且不循环（借助 `augment-command`）
    - `→` 使用 `bypass smart-enter`（目录进、文件开）
+   - **按键不再“等第二个键”**：`o` = 直接打开，`O` = 打开选项（选程序），`p` = 粘贴，
+     `P` = 强制粘贴，`r` = 重命名，`d` / `D` = 回收站 / 永久删除，`z` / `Z` = fzf / zoxide
+     跳目录——这些都是**按一下就生效**的单键，不再和其它双键前缀抢第一下
+   - 需要按第二下的操作统一挪到**大写前缀**：`R f` 清空重命名、`R i` / `R a` 光标位置、
+     `c c` / `c d` / `c f` / `c n` 复制路径、`t t` / `t r` / `t q` 标签页、`M g` 跳设备
+   - `Ctrl+O` 用自定义命令打开文件（原 `o c` 让位给“按一下就开”）
+   - Markdown（`*.md` 等）预览首选 `glow` 渲染，`yazi.toml` 里置于 `prepend_previewers` 首位
+   - HTML（`*.html` / `*.htm` / `*.xhtml`）直接用默认浏览器打开，不再送进 `$EDITOR`
    - `PageUp/PageDown` 与 `Shift+PageUp/PageDown` 的半页/整页对调
    - `<C-Up>` / `<C-Down>` 预览上下滚动 5 行（与 `K` / `J` 等价）
    - `<S-Left>` / `<S-Right>` 目录历史后退 / 前进
-   - 支持 `o o` / `p p` 双键前缀写法，`p f` 强制粘贴
-   - 重命名提供多种光标位置：`r r`（扩展名前）、`r f`（清空）、`r i`（开头）、`r a`（末尾）、`r c`（清空）
-   - 复制路径改用新语法（`c c` / `c d` / `c f` / `c n`），另有 `c m` 清空主名重命名、`c r` 创建
+   - 复制路径改用 `c c` / `c d` / `c f` / `c n`，另有 `c m` 清空主名重命名、`c r` 创建
    - `U` 一键从 Git 强制更新本配置（`scripts/update_config.sh`，详见第六节）
    - `yazi.toml`：按扩展名排序、行模式显示创建时间、显示隐藏文件、预览自动换行、
      图像缩放用 `lanczos3`、图片任务内存上限 1 GiB，并为 mediainfo / duckdb /
-     docx-preview / preview-typst 注册了 preloader 与 previewer 规则
+     docx-preview / preview-typst / glow-md 注册了 previewer 规则
    - `theme.toml` 只保留 `[flavor]` 段引用上游主题包（见第三节），图标依赖 Nerd Font
 
 ---
@@ -134,6 +142,7 @@ git checkout theme.toml
 
 - `keymap.toml` 中**所有快捷键的说明（`desc`）均已翻译为中文**，包括原本是英文的默认键
   （`G`、`Home`/`End`、`H`/`J`/`K`/`L`、`o`/`p`/`P`、`Ctrl+-`、`r`、`<F1>` 等）。
+- 单键优先：`o` 直接打开、`O` 打开选项、`p` 粘贴、`r` 重命名，都只按一下就生效。
 - 因此按 `~` 打开帮助面板、或按前缀键（如 `\`、`g`、`M`、`c`）弹出的按键提示，显示的都是中文。
 - 插件自身的少数运行提示仍为英文（由上游插件决定），例如 `yamb` 保存时弹出的
   `Tag (alias name)` / `Key (1 character, optional)` 输入框标题，以及 `"xxx" saved` 提示。
@@ -162,10 +171,14 @@ yazi
 ```bash
 # Arch Linux
 sudo pacman -S pandoc-cli duckdb mediainfo ffmpeg imagemagick typst \
-  starship ouch 7zip file gvfs glib2 util-linux fzf zoxide
+  starship ouch 7zip file gvfs glib2 util-linux fzf zoxide glow
 ```
 
-其中 `fzf` 与 `zoxide` 对应 Yazi 内置插件，分别供 `z`（fzf 跳转）和 `Z`（zoxide 跳目录）使用。
+其中 `fzf` 与 `zoxide` 对应 Yazi 内置插件，分别供 `z`（fzf 跳转）和 `Z`（zoxide 跳目录）使用，
+**无需再额外装插件**；`glow` 供 Markdown 预览使用（Fedora：`sudo dnf install glow`）。
+
+> 若不想用包管理器，也可以把 glow 的官方二进制放到 `~/.local/bin/glow`；
+> 没有 glow 时 Markdown 预览会自动退回纯文本，不会报错。
 
 其他发行版按上表工具名安装即可（个别包名不同）。
 

@@ -21,6 +21,11 @@ prepend_preloaders = [
   { url = "*.typ", run = "preview-typst" },
 ]
 prepend_previewers = [
+  # Markdown 预览首选：glow 渲染（需要 glow 命令；未安装时插件自动回退为纯文本）
+  { url = "*.md", run = "glow-md" },
+  { url = "*.markdown", run = "glow-md" },
+  { url = "*.mdown", run = "glow-md" },
+  { url = "*.mkd", run = "glow-md" },
   { mime = "{audio,video,image}/*", run = "mediainfo" },
   { mime = "application/subrip", run = "mediainfo" },
   { mime = "application/postscript", run = "mediainfo" },
@@ -39,3 +44,13 @@ prepend_previewers = [
 ]
 [tasks]
 image_alloc = 1073741824 # = 1024*1024*1024 = 1024MB
+
+# ==================== 打开方式 ====================
+[open]
+# HTML 直接用默认浏览器打开（Yazi 默认会把 text/* 交给 $EDITOR）
+prepend_rules = [
+  { mime = "text/html", use = "open" },
+  { url = "*.html", use = "open" },
+  { url = "*.htm", use = "open" },
+  { url = "*.xhtml", use = "open" },
+]

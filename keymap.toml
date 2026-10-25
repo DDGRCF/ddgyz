@@ -36,7 +36,7 @@ keymap = [
   { on = [ "M", "a" ], run = "plugin gvfs -- add-mount", desc = "添加挂载URI" },
   { on = [ "M", "e" ], run = "plugin gvfs -- edit-mount", desc = "编辑挂载URI" },
   { on = [ "M", "r" ], run = "plugin gvfs -- remove-mount", desc = "移除挂载URI" },
-  { on = [ "G", "m" ], run = "plugin gvfs -- jump-to-device --automount", desc = "跳转到设备挂载点" },
+  { on = [ "M", "g" ], run = "plugin gvfs -- jump-to-device --automount", desc = "跳转到设备挂载点" },
   { on = [ "`", "`" ], run = "plugin gvfs -- jump-back-prev-cwd", desc = "跳回上一个目录" },
 
 
@@ -170,15 +170,15 @@ keymap = [
   # =======================
   # 文件操作
   # =======================
-  { on = ["o", "o"],  run = "open",                        desc = "打开选定文件" },
-  { on = "O",         run = "open --interactive",          desc = "交互式打开选定文件" },
-  { on = ["o", "c"],  run = "plugin open-with-cmd --block", desc = "用自定义命令打开文件" },
+  { on = "o",         run = "open",                        desc = "直接打开选定文件(默认程序)" },
+  { on = "O",         run = "open --interactive",          desc = "打开选项:选择用哪个程序打开" },
+  { on = "<C-o>",     run = "plugin open-with-cmd --block", desc = "用自定义命令打开文件" },
   { on = "<Enter>",   run = "open",                        desc = "打开选定文件" },
-  { on = "<S-Enter>", run = "open --interactive",          desc = "交互式打开选定文件" },
+  { on = "<S-Enter>", run = "open --interactive",          desc = "打开选项:选择用哪个程序打开" },
   { on = "y",         run = "yank",                        desc = "复制选定文件" },
   { on = "x",         run = "yank --cut",                  desc = "剪切选定文件" },
-  { on = ["p","p"],         run = "paste",                       desc = "粘贴复制/剪切的文件" },
-  { on = ["p","f"],         run = "paste --force",               desc = "强制粘贴(覆盖现有文件)" },
+  { on = "p",         run = "paste",                       desc = "粘贴复制/剪切的文件" },
+  { on = "P",         run = "paste --force",               desc = "强制粘贴(覆盖现有文件)" },
   { on = ")",         run = "link",                        desc = "创建符号链接(绝对路径)" },
   { on = "(",         run = "link --relative",             desc = "创建符号链接(相对路径)" },
   { on = "*",         run = "hardlink",                    desc = "创建硬链接" },
@@ -195,11 +195,10 @@ keymap = [
   #================
   #重命名
   #================
-  { on = ["r","r"], run = "rename -- --cursor=before_ext", desc = "重命名文件或目录(光标在扩展名前)" },
-  { on = ["r","f"], run = "rename -- --empty=all", desc = "重命名文件并清空整个文件名" },
-  { on = ["r","i"], run = "rename -- --cursor=start", desc = "重命名文件(光标在文件名开头)" },
-  { on = ["r","a"], run = "rename -- --cursor=end", desc = "重命名文件(光标在文件名末尾)" },
-  { on = ["r","c"], run = "rename -- --empty=all", desc = "重命名文件并清空整个文件名" },
+  { on = "r",         run = "rename -- --cursor=before_ext", desc = "重命名文件或目录(光标在扩展名前)" },
+  { on = ["R","f"],  run = "rename -- --empty=all",           desc = "重命名并清空整个文件名" },
+  { on = ["R","i"],  run = "rename -- --cursor=start",        desc = "重命名(光标在文件名开头)" },
+  { on = ["R","a"],  run = "rename -- --cursor=end",          desc = "重命名(光标在文件名末尾)" },
 
 
   # =======================
@@ -251,11 +250,7 @@ keymap = [
   { on = "L",         run = "forward",       desc = "前进到下一个目录" },
   { on = "K",         run = "seek -5",       desc = "预览向上滚动 5 行" },
   { on = "J",         run = "seek 5",        desc = "预览向下滚动 5 行" },
-  { on = "o",         run = "open",          desc = "打开选中文件" },
-  { on = "p",         run = "paste",         desc = "粘贴(默认)" },
-  { on = "P",         run = "paste --force", desc = "强制粘贴(覆盖同名文件)" },
   { on = "<C-->",     run = "hardlink",      desc = "创建硬链接" },
-  { on = "r",         run = "rename --cursor=before_ext", desc = "重命名" },
   { on = "{",         run = "tab_swap -1",                desc = "与上一个标签交换位置" },
   { on = "<F1>",      run = "help",          desc = "打开帮助" },
   { on = [ "c", "C" ], run = "copy url",     desc = "复制文件 URL" },
