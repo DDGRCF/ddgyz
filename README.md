@@ -88,6 +88,8 @@
    - `Ctrl+O` 用自定义命令打开文件（原 `o c` 让位给“按一下就开”）
    - Markdown（`*.md` 等）预览首选 `glow` 渲染，`yazi.toml` 里置于 `prepend_previewers` 首位
    - HTML（`*.html` / `*.htm` / `*.xhtml`）直接用默认浏览器打开，不再送进 `$EDITOR`
+   - 打开方式按类型分流：视频在 Linux 优先 `mpv`、图片优先 `feh`（装了才用），
+     没装就自动退回 `xdg-open`；macOS 一律用系统默认 `open`。`o` 直接开，`O` 仍可手动选程序
    - `PageUp/PageDown` 与 `Shift+PageUp/PageDown` 的半页/整页对调
    - `<C-Up>` / `<C-Down>` 预览上下滚动 5 行（与 `K` / `J` 等价）
    - `<S-Left>` / `<S-Right>` 目录历史后退 / 前进
@@ -180,6 +182,9 @@ sudo pacman -S pandoc-cli duckdb mediainfo ffmpeg imagemagick typst \
 
 > 若不想用包管理器，也可以把 glow 的官方二进制放到 `~/.local/bin/glow`；
 > 没有 glow 时 Markdown 预览会自动退回纯文本，不会报错。
+
+> 视频 / 图片打开：装了 `mpv` / `feh` 就优先用它们（Fedora：`sudo dnf install mpv feh`），
+> 没装会自动退回系统默认程序（`xdg-open`），不会报错。macOS 用系统默认 `open`。
 
 其他发行版按上表工具名安装即可（个别包名不同）。
 
