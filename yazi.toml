@@ -62,10 +62,10 @@ prepend_rules = [
 # 注意：Yazi 不会自己检测命令是否存在，所以「找不到就退回 xdg-open」
 # 写在 shell 里（command -v 判断 + exec），这样不会弹出 Failed to spawn。
 video = [
-  { run = 'if command -v mpv >/dev/null 2>&1; then exec mpv %s; else exec xdg-open %s1; fi', desc = "mpv（未安装时用系统默认）", for = "linux" },
-  { run = "open %s", desc = "系统默认播放器", for = "macos" },
+  { run = 'if command -v mpv >/dev/null 2>&1; then exec mpv %s; else exec xdg-open %s1; fi', desc = "mpv", for = "linux" },
+  { run = "open %s", desc = "系统默认", for = "macos" },
 ]
 image = [
-  { run = 'if command -v feh >/dev/null 2>&1; then exec feh %s; else exec xdg-open %s1; fi', desc = "feh（未安装时用系统默认）", for = "linux" },
-  { run = "open %s", desc = "系统默认看图", for = "macos" },
+  { run = 'if command -v feh >/dev/null 2>&1; then exec feh %s; else exec xdg-open %s1; fi', desc = "feh", for = "linux" },
+  { run = "open %s", desc = "系统默认", for = "macos" },
 ]
