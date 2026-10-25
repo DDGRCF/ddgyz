@@ -1,6 +1,6 @@
 # Yazi 汉化增强配置
 
-> 一套基于 [Yazi](https://github.com/sxyazi/yazi) 的**中文增强配置**：界面提示全部汉化，内置 17 个实用插件，开箱即用。
+> 一套基于 [Yazi](https://github.com/sxyazi/yazi) 的**中文增强配置**：界面提示全部汉化，内置 17 个实用插件（其中 `video-tools` 视频压缩/截取为本配置独有），开箱即用。
 
 - 适用版本：**Yazi 26.9.1**
 - 面向用户：中文用户
@@ -13,6 +13,7 @@
 | 插件 | 功能 | 快捷键 / 说明 |
 | :--- | :--- | :--- |
 | `mediainfo` | 音视频、图片的缩略图与媒体信息预览 | 光标停留即可预览；依赖 `ffmpeg`、`mediainfo` |
+| `video-tools` | 视频压缩到指定大小、按时间段截取（本配置自带） | `W c` 压缩到指定 MB、`W C` 截取片段（输入 `起-止` 或 `起+时长`）；输出带 `_压缩NMB` / `_剪辑…` 后缀，同名自动加 `(2)` 不覆盖；依赖 `ffmpeg` |
 | `duckdb` | 预览 CSV / TSV / JSON / Parquet / XLSX / DB 表格数据 | 光标停留即可预览；依赖 `duckdb` |
 | `docx-preview` | `.docx` 文档转纯文本预览（支持中文） | 依赖 `pandoc` |
 | `glow-md` | Markdown 预览首选：用 `glow` 渲染标题、列表、代码块 | `*.md` / `*.markdown` / `*.mdown` / `*.mkd` 光标停留即可预览；依赖 `glow`（未安装时自动回退纯文本） |
@@ -29,9 +30,9 @@
 | `starship` | 顶部渲染 starship 提示符 | 依赖 `starship` |
 | `simple-status` | 精简底部状态栏 | 启动即生效 |
 
-> `package.toml` 锁定 16 个远程插件与 2 个现成主题（`dracula`、`catppuccin-mocha`），
-> 全部由 `ya pkg install` 自动安装；第 17 个 `glow-md` 是本仓库自带的本地插件（`plugins/glow-md.yazi`），
-> 随配置一起克隆下来即可，不需要联网安装。
+> `package.toml` 锁定 15 个远程插件与 2 个现成主题（`dracula`、`catppuccin-mocha`），
+> 全部由 `ya pkg install` 自动安装；另外 2 个是本仓库自带的本地插件——`glow-md`（`plugins/glow-md.yazi`）
+> 与 `video-tools`（`plugins/video-tools.yazi`），随配置一起克隆下来即可，不需要联网安装。
 
 ---
 

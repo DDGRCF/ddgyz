@@ -251,6 +251,9 @@ keymap = [
   { on = "K",         run = "seek -5",       desc = "预览向上滚动 5 行" },
   { on = "J",         run = "seek 5",        desc = "预览向下滚动 5 行" },
   { on = "<C-->",     run = "hardlink",      desc = "创建硬链接" },
+  # ===== 视频处理（W 前缀，需 ffmpeg）=====
+  { on = [ "W", "c" ], run = "plugin video-tools -- compress", desc = "压缩视频到指定大小(输入 MB)" },
+  { on = [ "W", "C" ], run = "plugin video-tools -- clip", desc = "截取视频片段(输入 起-止 或 起+时长)" },
   { on = "{",         run = "tab_swap -1",                desc = "与上一个标签交换位置" },
   { on = "<F1>",      run = "help",          desc = "打开帮助" },
   { on = [ "c", "C" ], run = "copy url",     desc = "复制文件 URL" },
