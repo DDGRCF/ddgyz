@@ -1,12 +1,11 @@
--- glow-md.yazi：用 glow 渲染 Markdown 预览（yazi 的 Markdown 预览首选）
+-- glow-md.yazi：Markdown 预览首选 —— 用 glow 渲染（标题 / 列表 / 代码块 / 表格）
 -- 依赖：glow（Fedora: sudo dnf install glow；Arch: sudo pacman -S glow）
--- glow 不存在时自动回退为纯文本预览，不会报错中断。
+-- glow 不存在时自动回退为纯文本，不会中断预览。
 local M = {}
 
 local STYLE = "dark" -- glow 主题：dark / light / notty / auto
-local SUFFIX = { ".md", ".markdown", ".mdown", ".mkd" }
 
----去掉 ANSI 颜色转义，避免终端控制序列直接显示在预览里
+---去掉 ANSI 颜色转义，避免控制序列直接出现在预览里
 ---@param s string
 ---@return string
 local function strip_ansi(s)
@@ -25,6 +24,17 @@ local function read_file(path)
   return s
 end
 
+---glow 候选路径：PATH 里的 glow，以及常见的用户级安装位置
+---@return string[]
+local function glow_bins()
+  local home = os.getenv("HOME") or ""
+  local bins = { "glow" }
+  if home ~= "" then
+    bins[#bins + 1] = home .. "/.local/bin/glow"
+  end
+  return bins
+end
+
 ---@param s string
 ---@return string[]
 local function to_lines(s)
@@ -37,29 +47,34 @@ local function to_lines(s)
 end
 
 ---@param job Job
----@return string? text, string? err
+---@return string? text
+---@return string? err
 local function render(job)
   local path = tostring(job.file.path or job.file.url)
   local width = math.max(40, (job.area and job.area.w or 80) - 2)
+  local last_err
 
-  local output, err = Command("glow"):arg({ "-s", STYLE, "-w", tostring(width), path }):output()
-  if err then
-    -- glow 未安装：回退到纯文本
-    local raw = read_file(path)
-    if raw then
-      return raw
+  for _, bin in ipairs(glow_bins()) do
+    local output, err = Command(bin):arg({ "-s", STYLE, "-w", tostring(width), path }):output()
+    if err then
+      last_err = tostring(err)
+    elseif output and output.status.success then
+      return strip_ansi(output.stdout or ""), nil
+    else
+      local msg = output and (output.stderr or "") or ""
+      msg = msg:gsub("%s+$", ""):gsub("\n", " ")
+      if msg ~= "" then
+        last_err = msg
+      end
     end
-    return nil, tostring(err)
-  elseif not output or not output.status.success then
-    local msg = output and (output.stderr or "") or ""
-    msg = msg:gsub("%s+$", ""):gsub("\n", " ")
-    if msg == "" then
-      return read_file(path) or ""
-    end
-    return nil, msg
   end
 
-  return strip_ansi(output.stdout or "")
+  -- glow 不可用（或渲染失败）：回退成纯文本，保证还能看内容
+  local raw = read_file(path)
+  if raw then
+    return raw, nil
+  end
+  return nil, last_err or "既没有 glow，也无法读取文件"
 end
 
 ---@param job Job
